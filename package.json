@@ -3,8 +3,20 @@
   "version": "1.0.0",
   "description": "Full-stack E-commerce REST API & Frontend Application",
   "private": true,
+  "type": "module",
   "scripts": {
     "server": "npm --prefix server run dev",
     "client": "npm --prefix client run dev"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.3",
+    "express": "^5.2.1",
+    "express-validator": "^7.3.2",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.10.1"
   }
 }
