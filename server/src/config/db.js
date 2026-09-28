@@ -1,10 +1,16 @@
 import dns from "dns";
-dns.setServers(["8.8.8.8", "1.1.1.1"]);
+try {
+  dns.setServers(["8.8.8.8", "1.1.1.1"]);
+} catch (error) {}
 
 import mongoose from "mongoose";
 import config from "./config.js";
 
 const connectDB = async () => {
+  if (mongoose.connection.readyState >= 1) {
+    return;
+  }
+
   try {
     await mongoose.connect(config.mongoURI, {
       serverSelectionTimeoutMS: 5000
