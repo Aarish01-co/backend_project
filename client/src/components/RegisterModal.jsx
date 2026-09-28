@@ -50,7 +50,7 @@ export function RegisterModal({ isOpen, onClose, onSuccess }) {
         onSuccess();
       }
     } catch (err) {
-      setGeneralError("An error occurred during registration");
+      setGeneralError(err.message || "Network error. Please try again.");
     } finally {
       setLoading(false);
     }

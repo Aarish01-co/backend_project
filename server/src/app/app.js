@@ -9,7 +9,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: config.clientUrl,
+    origin: config.clientUrl || true,
     credentials: true
   })
 );
@@ -18,12 +18,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.get("/api/health", (req, res) => {
+app.get(["/api/health", "/health"], (req, res) => {
   res.status(200).json({ status: "OK", timestamp: new Date() });
 });
 
 app.use("/api/auth", authRouter);
+app.use("/auth", authRouter);
+
 app.use("/api/products", productRouter);
+app.use("/products", productRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Route not found" });
