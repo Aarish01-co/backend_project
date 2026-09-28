@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { X, UserPlus } from "lucide-react";
-import { apiFetch } from "../api";
+import { apiFetch, parseResponseData } from "../api";
 
 export function RegisterModal({ isOpen, onClose, onSuccess }) {
   const [formData, setFormData] = useState({
@@ -34,7 +34,7 @@ export function RegisterModal({ isOpen, onClose, onSuccess }) {
         body: JSON.stringify(formData)
       });
 
-      const data = await res.json();
+      const data = await parseResponseData(res);
 
       if (!res.ok) {
         if (data.errors && Array.isArray(data.errors)) {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { X, LogIn } from "lucide-react";
-import { apiFetch, setAccessToken } from "../api";
+import { apiFetch, setAccessToken, parseResponseData } from "../api";
 
 export function LoginModal({ isOpen, onClose, onSuccess }) {
   const [formData, setFormData] = useState({
@@ -32,7 +32,7 @@ export function LoginModal({ isOpen, onClose, onSuccess }) {
         body: JSON.stringify(formData)
       });
 
-      const data = await res.json();
+      const data = await parseResponseData(res);
 
       if (!res.ok) {
         if (data.errors && Array.isArray(data.errors)) {

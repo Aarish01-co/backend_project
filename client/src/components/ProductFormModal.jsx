@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { X, PlusCircle, Check } from "lucide-react";
-import { apiFetch } from "../api";
+import { apiFetch, parseResponseData } from "../api";
 
 export function ProductFormModal({ isOpen, onClose, productToEdit, onSuccess }) {
   const [formData, setFormData] = useState({
@@ -64,7 +64,7 @@ export function ProductFormModal({ isOpen, onClose, productToEdit, onSuccess }) 
         body: JSON.stringify(formData)
       });
 
-      const data = await res.json();
+      const data = await parseResponseData(res);
 
       if (!res.ok) {
         if (data.errors && Array.isArray(data.errors)) {

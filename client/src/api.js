@@ -13,6 +13,15 @@ export const setAccessToken = (token) => {
 
 export const getAccessToken = () => accessToken;
 
+export const parseResponseData = async (res) => {
+  const text = await res.text();
+  try {
+    return JSON.parse(text);
+  } catch (err) {
+    return { message: text || "Unexpected server response" };
+  }
+};
+
 export const apiFetch = async (endpoint, options = {}) => {
   const headers = {
     "Content-Type": "application/json",
@@ -53,7 +62,7 @@ export const refreshAccessToken = async () => {
     });
 
     if (res.ok) {
-      const data = await res.json();
+      const data = await parseResponseData(res);
       setAccessToken(data.accessToken);
       return true;
     } else {
